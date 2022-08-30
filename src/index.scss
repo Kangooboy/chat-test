@@ -169,6 +169,7 @@ body {
     flex-wrap: nowrap;
     flex-direction: row;
     align-items: center;
+    margin-left: 10px;
   }
 
   @media (orientation: landscape) and  (max-width:768px) {
@@ -184,10 +185,6 @@ body {
     &__list {
       width: 65%;
       margin: 0;
-    }
-
-    &__item {
-      padding-left: 10px;
     }
 
     .user {
