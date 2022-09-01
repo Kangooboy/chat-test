@@ -8,10 +8,14 @@ _Test project with automatic replies after 10 seconds:_<br />
 - adaptive design
 - Google auth
 ---
-__Library:__  _React JS_<br />
-__Server:__  _Firebase_<br />
-__Automatic replies:__<br />
-[Chuck Norris API](https://api.chucknorris.io/)
+__Library:__  
+  - _React JS_
+
+__Server:__  
+  - _Firebase_
+
+__Automatic replies:__
+  - [Chuck Norris API](https://api.chucknorris.io/)
 
 ---
 __Testing in:__<br />
