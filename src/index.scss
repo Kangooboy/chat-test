@@ -1,8 +1,7 @@
 @font-face {
   font-family: "PTSans";
   src: local("PTSans Regular"), local("PTSans-Regular"),
-    url ("ptsans.woff") format("woff"),
-    url ("ptsans.woff") format("woff2");
+    url ("ptsans.woff") format("woff"), url ("ptsans.woff") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -10,8 +9,7 @@
 @font-face {
   font-family: "PTSans";
   src: local("PTSans Bold"), local("PTSans-Bold"),
-    url ("ptsans.woff") format("woff"),
-    url ("ptsans.woff") format("woff2");
+    url ("ptsans.woff") format("woff"), url ("ptsans.woff") format("woff2");
   font-weight: bold;
   font-style: normal;
 }
@@ -102,7 +100,7 @@ body {
   position: relative;
 
   &-input {
-    width:100%;
+    width: 100%;
     box-sizing: border-box;
     position: relative;
     margin-bottom: 10px;
@@ -114,8 +112,8 @@ body {
 
   &::after {
     position: absolute;
-    content: '';
-    background: url('./../public/images/search-icon.svg');
+    content: "";
+    background: url("./../public/images/search-icon.svg");
     background-size: 18px 18px;
     width: 18px;
     height: 18px;
@@ -172,7 +170,7 @@ body {
     margin-left: 10px;
   }
 
-  @media (orientation: landscape) and  (max-width:768px) {
+  @media (orientation: landscape) and (max-width: 768px) {
     & {
       width: 100%;
       flex-direction: row;
@@ -196,7 +194,8 @@ body {
 }
 
 .signin-btn {
-  word-wrap:break-word;
+  word-wrap: break-word;
+  appearance: none;
   -webkit-appearance: none;
   margin-right: auto;
   min-height: 50px;
@@ -223,6 +222,10 @@ body {
   flex-wrap: wrap;
   margin-left: 10px;
   margin-right: 10px;
+
+  &__avatar {
+    border-radius: 50%;
+  }
 
   &__name {
     font-size: medium;
@@ -272,7 +275,8 @@ body {
       height: 30px;
       width: 50px;
       border-radius: 10px;
-      background: url('./../public/images/back-arrow-icon.svg') 50% 0/100% 100% no-repeat;
+      background: url("./../public/images/back-arrow-icon.svg") 50% 0/100% 100%
+        no-repeat;
       -webkit-box-shadow: 1px 5px 7px -2px rgba(130, 116, 133, 1);
       -moz-box-shadow: 1px 5px 7px -2px rgba(130, 116, 133, 1);
       box-shadow: 1px 5px 7px -2px rgba(130, 116, 133, 1);

@@ -1,16 +1,18 @@
-import { useSelector } from 'react-redux';
-import ChatUserList from './../../components/chat-user-list/chat-user-list';
-import ChatWindow from './../../components/chat-window/chat-window';
-import { isMobile } from 'react-device-detect';
+import { useSelector } from "react-redux";
+import ChatUserList from "./../../components/chat-user-list/chat-user-list";
+import ChatWindow from "./../../components/chat-window/chat-window";
+import { isMobile } from "react-device-detect";
 
 function Chat() {
-  const isShowChatWindowOnly = useSelector((state) => state.chat.isShowChatWindowOnly);
+  const isShowChatWindowOnly = useSelector(
+    (state) => state.chat.isShowChatWindowOnly
+  );
 
-  if(isMobile && isShowChatWindowOnly) {
+  if (isMobile && isShowChatWindowOnly) {
     return <ChatWindow />;
   }
 
-  if(isMobile) {
+  if (isMobile) {
     return <ChatUserList />;
   }
 
