@@ -34,17 +34,23 @@ function ChatWindow() {
   useEffect(() => {
     const collRef = collection(db, "messages");
     const orderedColl = query(collRef, orderBy("createdAt"));
-    onSnapshot(orderedColl, (querySnapshot) => {
-      const messages = [];
-      querySnapshot.forEach((doc) => {
-        messages.push({
-          ...doc.data(),
-          id: doc.id,
-          createdAt: convertTimestamp(doc.data().createdAt, "messageFormat"),
+    if (
+      localStorage.getItem("avatar") &&
+      localStorage.getItem("name") &&
+      localStorage.getItem("email") !== null
+    ) {
+      onSnapshot(orderedColl, (querySnapshot) => {
+        const messages = [];
+        querySnapshot.forEach((doc) => {
+          messages.push({
+            ...doc.data(),
+            id: doc.id,
+            createdAt: convertTimestamp(doc.data().createdAt, "messageFormat"),
+          });
         });
+        dispatch(setMessages(messages));
       });
-      dispatch(setMessages(messages));
-    });
+    }
   }, [dispatch, activeUserId]);
 
   const activeUser = users.find((item) => item.uid === activeUserId);
@@ -115,22 +121,24 @@ function ChatWindow() {
           <ChatMessage key={item.id} message={item} />
         ))}
       </div>
-      <footer className="chat__input-wrapper">
-        <textarea
-          ref={messageRef}
-          onKeyDown={handleEnterKeyDown}
-          className="chat__input"
-          placeholder="Type your message and get joke about Chuck"
-        />
-        <img
-          onClick={handleSendMessageClick}
-          className="send-message-btn"
-          src="images/send-icon.svg"
-          alt="send message"
-          width="35"
-          height="35"
-        />
-      </footer>
+      {activeUser && (
+        <footer className="chat__input-wrapper">
+          <textarea
+            ref={messageRef}
+            onKeyDown={handleEnterKeyDown}
+            className="chat__input"
+            placeholder="Type your message and get joke about Chuck"
+          />
+          <img
+            onClick={handleSendMessageClick}
+            className="send-message-btn"
+            src="images/send-icon.svg"
+            alt="send message"
+            width="35"
+            height="35"
+          />
+        </footer>
+      )}
     </div>
   );
 }

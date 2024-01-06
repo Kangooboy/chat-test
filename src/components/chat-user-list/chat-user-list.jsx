@@ -29,22 +29,27 @@ function ChatsUserList() {
   useEffect(() => {
     const collRef = collection(db, "users");
     const orderedColl = query(collRef, orderBy("lastMessageCreatedAt", "desc"));
-
-    onSnapshot(orderedColl, (querySnapshot) => {
-      const usersRef = [];
-      querySnapshot.forEach((doc) => {
-        usersRef.push({
-          ...doc.data(),
-          uid: doc.id,
-          lastMessageCreatedAt: convertTimestamp(
-            doc.data().lastMessageCreatedAt,
-            "userFormat"
-          ),
+    if (
+      localStorage.getItem("avatar") &&
+      localStorage.getItem("name") &&
+      localStorage.getItem("email") !== null
+    ) {
+      onSnapshot(orderedColl, (querySnapshot) => {
+        const usersRef = [];
+        querySnapshot.forEach((doc) => {
+          usersRef.push({
+            ...doc.data(),
+            uid: doc.id,
+            lastMessageCreatedAt: convertTimestamp(
+              doc.data().lastMessageCreatedAt,
+              "userFormat"
+            ),
+          });
         });
+        setFilteredUsers(usersRef);
+        dispatch(setUsers(usersRef));
       });
-      setFilteredUsers(usersRef);
-      dispatch(setUsers(usersRef));
-    });
+    }
   }, [dispatch]);
 
   const handleListItemClick = (evt) => {
@@ -92,11 +97,12 @@ function ChatsUserList() {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     if (isAuth) {
-      signOut(getAuth());
+      await signOut(getAuth());
       localStorage.removeItem("name");
       localStorage.removeItem("email");
       localStorage.removeItem("avatar");
       setIsAuth(false);
+      window.location.reload();
     } else {
       signInWithPopup(auth, provider)
         .then((result) => {
@@ -107,6 +113,7 @@ function ChatsUserList() {
           localStorage.setItem("email", email);
           localStorage.setItem("avatar", avatar);
           setIsAuth(true);
+          window.location.reload();
         })
         .catch((error) => console.log(error));
     }
@@ -129,14 +136,18 @@ function ChatsUserList() {
             width="60"
             height="60"
           />
-          {localStorage.getItem("avatar") !== null && (
-            <div className="user__info">
-              <p className="user__info-name">{localStorage.getItem("name")}</p>
-              <p className="user__info-email">
-                {localStorage.getItem("email")}
-              </p>
-            </div>
-          )}
+          {localStorage.getItem("avatar") &&
+            localStorage.getItem("name") &&
+            localStorage.getItem("email") !== null && (
+              <div className="user__info">
+                <p className="user__info-name">
+                  {localStorage.getItem("name")}
+                </p>
+                <p className="user__info-email">
+                  {localStorage.getItem("email")}
+                </p>
+              </div>
+            )}
           <button
             className="signin-btn"
             onClick={handleSignIn}
